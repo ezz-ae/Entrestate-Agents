@@ -28,6 +28,27 @@ export default function IntelligencePage() {
         </div>
 
         <div className="space-y-6">
+          <Card className="border-primary bg-primary/5">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Zap className="w-5 h-5 text-primary fill-primary" />
+                Proactive Concierge
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="p-3 bg-background rounded border border-primary/20">
+                <p className="text-xs font-bold text-primary uppercase mb-1">Market Gap Alert</p>
+                <p className="text-sm italic">"A new 'High-Efficiency' gap has opened in Dubai Hills with a Market Score of 85.4/100. We have already run the impact analysis for your profile."</p>
+                <Button variant="link" className="p-0 h-auto text-xs mt-2">[ ACTIVATE RESULTS ]</Button>
+              </div>
+              <div className="p-3 bg-background rounded border border-primary/20">
+                <p className="text-xs font-bold text-primary uppercase mb-1">Risk Mitigation</p>
+                <p className="text-sm italic">"We noticed a 5% drop in delivery confidence for your watched assets. Shall we handle the risk mitigation for you?"</p>
+                <Button variant="link" className="p-0 h-auto text-xs mt-2">[ SHIELD ASSETS ]</Button>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle>Market Composition</CardTitle>

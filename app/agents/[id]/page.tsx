@@ -43,12 +43,24 @@ export default function AgentPanelPage({ params }: { params: { id: string } }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <Card className="md:col-span-2">
+        <Card className="md:col-span-2 border-2 border-primary bg-primary/5">
           <CardHeader>
-            <CardTitle>Identity & Authority Card</CardTitle>
-            <CardDescription>The core reasoning contract for this agent.</CardDescription>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-xl font-black tracking-tighter uppercase">Intelligence Shield: ACTIVE</CardTitle>
+              <Badge className="bg-primary animate-pulse">DIRECTOR LEVEL</Badge>
+            </div>
+            <CardDescription className="italic text-xs">"Proactive mitigation of unmanaged capital exposure."</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-8">
+            <div className="p-4 bg-background rounded-lg border-l-4 border-destructive">
+              <p className="text-[10px] font-black text-destructive uppercase tracking-widest mb-1">NUCLEAR DATA GAP DETECTED</p>
+              <p className="text-sm font-bold">Your Portfolio vulnerability to Fed Rate Hike (+2%) is unmonitored.</p>
+              <p className="text-xs text-muted-foreground mt-2 italic">"Without this visibility, a single rate adjustment collapses your exit liquidity by 40%."</p>
+              <Button size="sm" className="mt-4 bg-destructive text-destructive-foreground hover:bg-destructive/90 font-black text-[10px] tracking-widest uppercase">
+                [ RESOLVE NUCLEAR GAP ]
+              </Button>
+            </div>
+
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <Label className="text-xs uppercase text-muted-foreground">Domain Authority</Label>

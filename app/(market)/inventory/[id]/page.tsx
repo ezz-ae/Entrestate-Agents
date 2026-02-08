@@ -79,6 +79,11 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
                 <p className={`text-xl font-bold ${project.derived_price_momentum < 0 ? 'text-green-500' : 'text-red-500'}`}>
                   {project.derived_price_momentum > 0 ? '+' : ''}{project.derived_price_momentum}% vs Median
                 </p>
+                {project.derived_price_momentum > 50 && (
+                  <div className="mt-2 p-2 bg-destructive/10 rounded border border-destructive/20 animate-pulse">
+                    <p className="text-[10px] font-black text-destructive uppercase">Nuclear Data Gap: High Premium</p>
+                  </div>
+                )}
               </div>
               <div>
                 <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Problem Solved</p>

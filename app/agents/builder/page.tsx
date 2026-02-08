@@ -44,12 +44,12 @@ export default function AgentBuilderPage() {
           <p className="text-muted-foreground">Opinionated AI Intelligence Compiler (Stage {stage}/6)</p>
         </div>
         <div className="flex gap-2">
-          {stage > 1 && <Button variant="outline" onClick={prevStage}>Back</Button>}
+          {stage > 1 && <Button variant="outline" onClick={prevStage}>Stay Partial</Button>}
           {stage < 6 ? (
             <Button onClick={nextStage}>Next: Stage {stage + 1}</Button>
           ) : (
-            <Button className="bg-primary hover:bg-primary/90">
-              <Save className="w-4 h-4 mr-2" /> Compile ABO
+            <Button className="bg-primary hover:bg-primary/90 font-black tracking-widest">
+              [ COMPLETE SETUP ]
             </Button>
           )}
         </div>

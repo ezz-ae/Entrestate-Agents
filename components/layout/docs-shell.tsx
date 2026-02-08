@@ -14,6 +14,8 @@ import { CommandPalette } from "@/components/search/command-palette"
 import { AssistantDock } from "@/components/assistant/assistant-dock"
 import { AssistantSheet } from "@/components/assistant/assistant-sheet"
 import { navigation } from "@/lib/docs/nav"
+import { useBehavioralEngine } from "@/hooks/use-behavioral-engine"
+import { BestNextStepCard } from "@/components/intelligence/BestNextStepCard"
 
 interface DocsShellProps {
   children: React.ReactNode
@@ -23,6 +25,7 @@ export function DocsShell({ children }: DocsShellProps) {
   const pathname = usePathname()
   const [searchOpen, setSearchOpen] = useState(false)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  const { activeSignal, dismissSignal, triggerSignal } = useBehavioralEngine();
 
   // Find current section and page for breadcrumbs
   const currentNav = navigation.find((section) => section.items.some((item) => item.href === pathname))
@@ -63,6 +66,18 @@ export function DocsShell({ children }: DocsShellProps) {
 
       <MobileNav open={mobileNavOpen} onOpenChange={setMobileNavOpen} />
       <CommandPalette open={searchOpen} onOpenChange={setSearchOpen} />
+      
+      {activeSignal && (
+        <BestNextStepCard 
+          signal={activeSignal.signal} 
+          context={activeSignal.context}
+          onMitigate={() => {
+            // Log mitigation and redirect to specific agent/action
+            dismissSignal();
+          }}
+          onAcceptRisk={() => dismissSignal()}
+        />
+      )}
     </div>
   )
 }

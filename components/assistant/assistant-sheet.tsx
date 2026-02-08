@@ -53,10 +53,14 @@ export function AssistantSheet({ open, onOpenChange }: AssistantSheetProps) {
                 <div className="rounded-full bg-primary/10 p-4 mb-4">
                   <Sparkles className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-lg font-medium mb-2">How can I help you invest?</h3>
-                <p className="text-sm text-muted-foreground max-w-[280px]">
-                  Ask about specific projects, budgets, or "what if" market scenarios.
+                <h3 className="text-xl font-black tracking-tighter mb-2">PROACTIVE INTELLIGENCE</h3>
+                <p className="text-xs text-muted-foreground max-w-[280px] italic">
+                  "Your Intelligence Shield is 40% active. Provide your intent handle to complete the setup."
                 </p>
+                <div className="mt-6 flex flex-col gap-2 w-full max-w-[240px]">
+                  <Button size="sm" className="w-full font-black text-[10px] tracking-widest">[ COMPLETE SETUP ]</Button>
+                  <Button size="sm" variant="ghost" className="w-full font-bold text-[9px] text-muted-foreground opacity-50 underline decoration-dotted">STAY PARTIAL (Vulnerable)</Button>
+                </div>
               </div>
             )}
             
