@@ -15,6 +15,16 @@ interface AssistantSheetProps {
 export function AssistantSheet({ open, onOpenChange }: AssistantSheetProps) {
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
 
+  // Custom Meta Agent Query Function for autonomous execution
+  async function queryMetaAgent(prompt: string) {
+    const res = await fetch('/api/meta-agent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, agentId: 'agent-investment-advisor' }),
+    });
+    return res.json();
+  }
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
