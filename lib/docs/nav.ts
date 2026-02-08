@@ -17,6 +17,7 @@ import {
   Terminal,
   BookOpen,
   Braces,
+  Zap,
 } from "lucide-react"
 
 export const siteConfig = {
@@ -93,6 +94,22 @@ export const navigation: NavSection[] = [
       { title: "Pages", href: "/docs/pages", icon: FileText },
       { title: "Hidden pages", href: "/docs/hidden-pages", icon: EyeOff },
       { title: "Exclude files", href: "/docs/exclude-files", icon: FolderX },
+    ],
+  },
+  {
+    title: "Market Intelligence",
+    icon: Globe,
+    items: [
+      { title: "Inventory", href: "/inventory" },
+      { title: "Intelligence Dashboard", href: "/intelligence" },
+    ],
+  },
+  {
+    title: "Agent Builder",
+    icon: Zap,
+    items: [
+      { title: "Create Agent", href: "/agents/builder" },
+      { title: "Expert Agents", href: "/docs/expert-agents" },
     ],
   },
   {

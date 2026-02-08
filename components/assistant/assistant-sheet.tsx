@@ -1,9 +1,11 @@
 "use client"
 
-import { X, ArrowUp, Sparkles } from "lucide-react"
+import { X, ArrowUp, Sparkles, User, Bot } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
+import { useChat } from 'ai/react'
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 interface AssistantSheetProps {
   open: boolean
@@ -11,6 +13,8 @@ interface AssistantSheetProps {
 }
 
 export function AssistantSheet({ open, onOpenChange }: AssistantSheetProps) {
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
@@ -20,7 +24,7 @@ export function AssistantSheet({ open, onOpenChange }: AssistantSheetProps) {
         <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-border/50">
           <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-primary" />
-            <span className="font-medium">Assistant</span>
+            <span className="font-medium">Entrestate Intelligence</span>
           </div>
           <Button
             variant="ghost"
@@ -32,28 +36,62 @@ export function AssistantSheet({ open, onOpenChange }: AssistantSheetProps) {
           </Button>
         </div>
 
-        <div className="flex flex-1 flex-col min-h-0">
-          {/* Chat messages area */}
-          <div className="flex-1 overflow-y-auto py-4 px-4">
-            <div className="flex flex-col items-center justify-center h-full text-center">
-              <div className="rounded-full bg-primary/10 p-4 mb-4">
-                <Sparkles className="h-8 w-8 text-primary" />
+        <ScrollArea className="flex-1 px-4">
+          <div className="py-6 space-y-6">
+            {messages.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-10 text-center">
+                <div className="rounded-full bg-primary/10 p-4 mb-4">
+                  <Sparkles className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-lg font-medium mb-2">How can I help you invest?</h3>
+                <p className="text-sm text-muted-foreground max-w-[280px]">
+                  Ask about specific projects, budgets, or "what if" market scenarios.
+                </p>
               </div>
-              <h3 className="text-lg font-medium mb-2">Ask anything about the docs</h3>
-              <p className="text-sm text-muted-foreground">
-                Get instant answers, code examples, and guidance from the AI assistant.
-              </p>
-            </div>
+            )}
+            
+            {messages.map(m => (
+              <div key={m.id} className={`flex gap-3 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                {m.role !== 'user' && (
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <Bot className="w-4 h-4 text-primary" />
+                  </div>
+                )}
+                <div className={`rounded-2xl px-4 py-2 text-sm max-w-[85%] ${
+                  m.role === 'user' 
+                    ? 'bg-primary text-primary-foreground' 
+                    : 'bg-muted border border-border/50'
+                }`}>
+                  {m.content}
+                </div>
+                {m.role === 'user' && (
+                  <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center shrink-0">
+                    <User className="w-4 h-4" />
+                  </div>
+                )}
+              </div>
+            ))}
+            {isLoading && (
+              <div className="flex gap-3 justify-start animate-pulse">
+                <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center shrink-0" />
+                <div className="rounded-2xl px-4 py-2 bg-muted h-10 w-24" />
+              </div>
+            )}
           </div>
+        </ScrollArea>
 
-          <div className="border-t border-border/50 p-4">
-            <div className="flex items-center gap-2">
-              <Input placeholder="Ask a question..." className="flex-1 bg-secondary/50 border-border/50" />
-              <Button size="icon" className="shrink-0">
-                <ArrowUp className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+        <div className="border-t border-border/50 p-4 bg-background">
+          <form onSubmit={handleSubmit} className="flex items-center gap-2">
+            <Input 
+              value={input}
+              onChange={handleInputChange}
+              placeholder="Ask a question..." 
+              className="flex-1 bg-secondary/50 border-border/50" 
+            />
+            <Button size="icon" type="submit" disabled={isLoading || !input.trim()} className="shrink-0">
+              <ArrowUp className="h-4 w-4" />
+            </Button>
+          </form>
         </div>
       </SheetContent>
     </Sheet>

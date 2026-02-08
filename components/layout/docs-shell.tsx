@@ -22,7 +22,6 @@ interface DocsShellProps {
 export function DocsShell({ children }: DocsShellProps) {
   const pathname = usePathname()
   const [searchOpen, setSearchOpen] = useState(false)
-  const [assistantOpen, setAssistantOpen] = useState(false)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
 
   // Find current section and page for breadcrumbs
@@ -35,10 +34,6 @@ export function DocsShell({ children }: DocsShellProps) {
         e.preventDefault()
         setSearchOpen(true)
       }
-      if (e.key === "i" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setAssistantOpen(true)
-      }
     }
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
@@ -47,7 +42,7 @@ export function DocsShell({ children }: DocsShellProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <SkipLink />
-      <Topbar onSearchClick={() => setSearchOpen(true)} onAssistantClick={() => setAssistantOpen(true)} />
+      <Topbar onSearchClick={() => setSearchOpen(true)} onAssistantClick={() => {}} />
       <MobileBreadcrumbBar
         section={currentNav?.title}
         page={currentPage?.title}
@@ -56,7 +51,7 @@ export function DocsShell({ children }: DocsShellProps) {
       <div className="flex flex-1">
         <div className="hidden lg:block">
           <div className="sticky top-14 h-[calc(100vh-3.5rem)]">
-            <Sidebar onSearchClick={() => setSearchOpen(true)} onAssistantClick={() => setAssistantOpen(true)} />
+            <Sidebar onSearchClick={() => setSearchOpen(true)} onAssistantClick={() => {}} />
           </div>
         </div>
         <main id="main-content" className="relative flex-1 overflow-hidden" tabIndex={-1}>
@@ -68,7 +63,6 @@ export function DocsShell({ children }: DocsShellProps) {
 
       <MobileNav open={mobileNavOpen} onOpenChange={setMobileNavOpen} />
       <CommandPalette open={searchOpen} onOpenChange={setSearchOpen} />
-      <AssistantSheet open={assistantOpen} onOpenChange={setAssistantOpen} />
     </div>
   )
 }
