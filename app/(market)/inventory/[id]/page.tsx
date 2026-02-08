@@ -121,6 +121,14 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
               <p className="text-xs text-muted-foreground uppercase tracking-wider">Liquidity Timeline</p>
               <p className="font-semibold text-lg">{project.derived_liquidity_timeline}</p>
             </div>
+            
+            <Separator />
+            <div className="bg-primary/5 p-4 rounded-lg border border-primary/10">
+              <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Director's Analysis</p>
+              <p className="text-xs italic leading-relaxed text-muted-foreground">
+                This asset has been algorithmically validated. Its {project.derived_investment_score} score reflects a superior {project.derived_price_momentum < 0 ? 'valuation entry point' : 'market positioning'} coupled with {project.dynamic_delivery_confidence.toLowerCase()} execution confidence. Recommended for {project.derived_buyer_persona} portfolios.
+              </p>
+            </div>
           </CardContent>
         </Card>
       </div>

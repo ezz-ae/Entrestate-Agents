@@ -1,31 +1,31 @@
-import { Rocket, Terminal, PenTool, Component } from "lucide-react"
+import { Globe, Shield, Zap, Search } from "lucide-react"
 import { HeroCard } from "@/components/docs/hero-card"
 import { DecorativeBg } from "@/components/docs/decorative-bg"
 
 const heroCards = [
   {
-    title: "Quickstart",
-    description: "Deploy your first docs site in minutes with our step-by-step guide",
-    href: "/docs/quickstart",
-    icon: Rocket,
+    title: "Market Inventory",
+    description: "Explore the 5-layer modeled market graph. Find high-scoring assets across all price tiers.",
+    href: "/inventory",
+    icon: Search,
   },
   {
-    title: "CLI installation",
-    description: "Install the CLI to preview and develop your docs locally",
-    href: "/docs/cli",
-    icon: Terminal,
+    title: "Intelligence Dashboard",
+    description: "Visualize market risk vs. liquidity timelines on the proprietary Portfolio Quadrant Analysis.",
+    href: "/intelligence",
+    icon: Globe,
   },
   {
-    title: "Web editor",
-    description: "Edit your documentation directly in the browser",
-    href: "/docs/web-editor",
-    icon: PenTool,
+    title: "Agent Builder",
+    description: "Build custom AI agents to automate your market analysis, calls, and investment reasoning.",
+    href: "/agents/builder",
+    icon: Zap,
   },
   {
-    title: "Components",
-    description: "Explore our library of pre-built documentation components",
-    href: "/docs/components",
-    icon: Component,
+    title: "Intelligence Docs",
+    description: "Learn about the 5-Layer Model, PPB metrics, and our proprietary Investment Scoring logic.",
+    href: "/docs",
+    icon: Shield,
   },
 ]
 
@@ -36,10 +36,9 @@ export default function HomePage() {
 
       <div className="relative z-10 mx-auto max-w-3xl px-4 py-16 lg:py-24 lg:pb-12">
         {/* Hero text - centered */}
-        <h1 className="text-center text-4xl font-medium tracking-tight text-foreground">Documentation</h1>
+        <h1 className="text-center text-4xl font-medium tracking-tight text-foreground">Entrestate Intelligence Engine</h1>
         <p className="mx-auto mt-4 max-w-xl px-4 text-center text-lg text-muted-foreground">
-          Meet the next generation of documentation. AI-native, beautiful out-of-the-box, and built for developers and
-          teams.
+          The next generation of real estate investment discovery. Autonomous agents, 5-layer market modeling, and algorithmic risk guardrails for the modern investor.
         </p>
 
         {/* Hero cards grid */}

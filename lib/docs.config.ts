@@ -24,24 +24,24 @@ import {
 
 // Site configuration
 export const siteConfig = {
-  name: "Docs",
-  description: "Beautiful documentation for developers and teams",
-  url: "https://docs.example.com",
+  name: "Entrestate Intelligence",
+  description: "AI-Native Real Estate Reasoning Engine & Investment Guardrail",
+  url: "https://intelligence.entrestate.com",
   ogImage: "/og-image.png",
   logo: {
-    light: "/logo-light.svg",
-    dark: "/logo-dark.svg",
+    light: "/logo.png",
+    dark: "/logo.png",
   },
-  github: "https://github.com/example/docs",
-  twitter: "https://twitter.com/example",
+  github: "https://github.com/ezz-ae/Entrestate-Agents",
+  twitter: "https://twitter.com/entrestate",
 }
 
 // Top navigation links
 export const topNavigation = [
+  { label: "Market Inventory", href: "/inventory" },
+  { label: "Intelligence Dashboard", href: "/intelligence" },
+  { label: "Agent Builder", href: "/agents/builder" },
   { label: "Documentation", href: "/docs" },
-  { label: "Guides", href: "/docs/guides" },
-  { label: "API reference", href: "/docs/api" },
-  { label: "Changelog", href: "/docs/changelog" },
 ]
 
 // Sidebar navigation

@@ -21,20 +21,20 @@ import {
 } from "lucide-react"
 
 export const siteConfig = {
-  name: "Docs",
-  description: "AI-native documentation platform for developers and teams",
-  url: "https://docs.example.com",
+  name: "Entrestate Intelligence",
+  description: "Autonomous real estate reasoning engine and investment discovery platform.",
+  url: "https://intelligence.entrestate.com",
   links: {
-    twitter: "https://twitter.com/docs",
-    github: "https://github.com/docs",
+    twitter: "https://twitter.com/entrestate",
+    github: "https://github.com/ezz-ae/Entrestate-Agents",
   },
 }
 
 export const topNavigation = [
-  { title: "Documentation", href: "/docs" },
-  { title: "Guides", href: "/docs/quickstart" },
-  { title: "API reference", href: "/docs/api" },
-  { title: "Changelog", href: "/docs/changelog" },
+  { title: "Inventory", href: "/inventory" },
+  { title: "Intelligence", href: "/intelligence" },
+  { title: "Agent Builder", href: "/agents/builder" },
+  { title: "Docs", href: "/docs" },
 ]
 
 export const footerLinks = {

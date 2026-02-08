@@ -1,53 +1,57 @@
-import { Rocket, Terminal, PenTool, Component } from "lucide-react"
-import { HeroCard } from "@/components/docs/hero-card"
-import { DecorativeBg } from "@/components/docs/decorative-bg"
-
-const heroCards = [
-  {
-    title: "Quickstart",
-    description: "Deploy your first docs site in minutes with our step-by-step guide",
-    href: "/docs/quickstart",
-    icon: Rocket,
-  },
-  {
-    title: "CLI installation",
-    description: "Install the CLI to preview and develop your docs locally",
-    href: "/docs/cli",
-    icon: Terminal,
-  },
-  {
-    title: "Web editor",
-    description: "Edit your documentation directly in the browser",
-    href: "/docs/web-editor",
-    icon: PenTool,
-  },
-  {
-    title: "Components",
-    description: "Explore our library of pre-built documentation components",
-    href: "/docs/components",
-    icon: Component,
-  },
-]
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+import { Shield, Target, TrendingUp, Zap } from "lucide-react"
 
 export default function DocsPage() {
   return (
-    <div className="relative min-h-[calc(100vh-3.5rem)]">
-      <DecorativeBg />
-
-      <div className="relative z-10 mx-auto max-w-3xl px-4 py-16 lg:py-24 lg:pb-12">
-        {/* Hero text - centered */}
-        <h1 className="text-center text-4xl font-medium tracking-tight text-foreground">Documentation</h1>
-        <p className="mx-auto mt-4 max-w-xl px-4 text-center text-lg text-muted-foreground">
-          Meet the next generation of documentation. AI-native, beautiful out-of-the-box, and built for developers and
-          teams.
+    <div className="space-y-10 py-10 px-6">
+      <div className="space-y-4 max-w-3xl">
+        <h1 className="text-4xl font-bold tracking-tight">Intelligence Engine Primer</h1>
+        <p className="text-xl text-muted-foreground">
+          Welcome to the world's first real estate reasoning engine. We don't just show you listings; we reason through the financial DNA of the market.
         </p>
+      </div>
 
-        {/* Hero cards grid */}
-        <div className="mt-12 grid gap-x-6 gap-y-4 px-6 sm:grid-cols-2 lg:mt-24 lg:px-0">
-          {heroCards.map((card) => (
-            <HeroCard key={card.href} {...card} />
-          ))}
-        </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+        <Card className="hover:shadow-md transition-shadow">
+          <CardHeader>
+            <Shield className="w-8 h-8 text-primary mb-2" />
+            <CardTitle>The 5-Layer Model</CardTitle>
+            <CardDescription>How we turn messy data into gold.</CardDescription>
+          </CardHeader>
+          <CardContent className="text-sm text-muted-foreground">
+            Our engine processes every project through 5 rigorous filters: Static Truths, Dynamic Momentum, Derived Strategy, Identity Kernel, and Decision Readiness.
+          </CardContent>
+        </Card>
+        <Card className="hover:shadow-md transition-shadow">
+          <CardHeader>
+            <Target className="w-8 h-8 text-primary mb-2" />
+            <CardTitle>Investment Score</CardTitle>
+            <CardDescription>The 0-100 binary signal.</CardDescription>
+          </CardHeader>
+          <CardContent className="text-sm text-muted-foreground">
+            A single metric that synthesizes price advantage, handover timing, and developer reliability. 85+ is a "Director's Pick."
+          </CardContent>
+        </Card>
+        <Card className="hover:shadow-md transition-shadow">
+          <CardHeader>
+            <TrendingUp className="w-8 h-8 text-primary mb-2" />
+            <CardTitle>Price Momentum</CardTitle>
+            <CardDescription>Beat the market median.</CardDescription>
+          </CardHeader>
+          <CardContent className="text-sm text-muted-foreground">
+            We track every asset against its specific completion year cohort. Never overpay for a trophy again.
+          </CardContent>
+        </Card>
+        <Card className="hover:shadow-md transition-shadow">
+          <CardHeader>
+            <Zap className="w-8 h-8 text-primary mb-2" />
+            <CardTitle>Autonomous Agents</CardTitle>
+            <CardDescription>Your 24/7 investment team.</CardDescription>
+          </CardHeader>
+          <CardContent className="text-sm text-muted-foreground">
+            Deploy specialized AI agents to qualify leads, draft contracts, and stress-test your portfolio in real-time.
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
