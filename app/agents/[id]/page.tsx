@@ -5,7 +5,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Bot, Phone, MessageSquare, Play, Pause, Settings } from 'lucide-react';
+import { Bot, Phone, MessageSquare, Play, Pause, Settings, Zap } from 'lucide-react';
+import { Label } from '@/components/ui/label';
 
 export default function AgentPanelPage({ params }: { params: { id: string } }) {
   // Mock agent data (in real app, fetch from Prisma)
@@ -123,8 +124,4 @@ export default function AgentPanelPage({ params }: { params: { id: string } }) {
       </div>
     </div>
   );
-}
-
-function Label({ children, className }: { children: React.ReactNode, className?: string }) {
-  return <label className={`text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ${className}`}>{children}</label>;
 }

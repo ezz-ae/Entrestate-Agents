@@ -1,46 +1,31 @@
 import { google } from '@ai-sdk/google';
 import { streamText, tool } from 'ai';
 import { z } from 'zod';
-import { findProjects, SearchFilters } from '@/lib/engine/filters';
+import { findProjects } from '@/lib/engine/filters';
 import { runWhatIfAnalysis } from '@/lib/engine/reasoning';
 import { hybridSearch } from '@/lib/engine/vector';
-import { ScenarioType } from '@/lib/engine/scenarios';
 import { InventoryNode } from '@/lib/engine/types';
+import { ScenarioType } from '@/lib/engine/scenarios';
 import inventoryData from '@/public/data/inventory.json';
 
 export const maxDuration = 30;
 
-export async function POST(req: Request) {
-  const { messages } = await req.json();
+type ChatMessage = { role: 'user' | 'system' | 'assistant'; content: string };
 
-  const result = streamText({
+// Define each tool return type
+type FindProjectsResult = InventoryNode[];
+type ListAgentsResult = { ready_agents: string[]; builder_url: string };
+type SemanticSearchResult = Awaited<ReturnType<typeof hybridSearch>>;
+type RunScenarioResult = ReturnType<typeof runWhatIfAnalysis>;
+
+export async function POST(req: Request) {
+  const { messages }: { messages: ChatMessage[] } = await req.json();
+
+  const result = await streamText({
     model: google('gemini-1.5-flash'),
     messages,
     system: `You are the Entrestate Senior Investment Director and Behavioral Specialist. 
-    Your mission is to guide users through the "Entrestate Money Printer" using the Behavioral Monetization Engine (BME).
-    
-    Behavioral Mandates:
-    - Never be passive. Inactivity is a failure.
-    - Use "Truth Framing": Make the cost of "not knowing" psychologically unbearable.
-    - Apply the 4-Stage Narrative Template for all asset discussions:
-      1. What You See: Surface data.
-      2. What You’re Missing: The "Nuclear" data gap (e.g., High Premium >50%).
-      3. What Breaks Without It: Consequences (e.g., Fed Rate Hike collapse).
-      4. What Changes After Activation: The relief/shield.
-    
-    Linguistic Anchors:
-    - Replace "Package" with "Completeness."
-    - Use "Complete Setup" (Active/Safe) vs "Stay Partial" (Passive/Vulnerable).
-    - Reframing purchase as "Activate Intelligence Shield."
-    
-    Truth Hierarchy:
-    - Layer 1: Static Truths (Baseline).
-    - Layer 2: Dynamic Truths (Momentum).
-    - Layer 3: Derived Truths (Intelligence).
-    - Layer 4: Identity Kernel (DNA).
-    - Layer 5: Decision Ready (Binary Signal).
-    
-    Always follow the "Think → Explain → Answer" contract. Predictive intelligence is dominance.`,
+      Guide users through the "Entrestate Money Printer" using the Behavioral Monetization Engine (BME).`,
     tools: {
       find_projects: tool({
         description: 'Search for real estate projects based on metadata filters',
@@ -50,12 +35,13 @@ export async function POST(req: Request) {
           area: z.string().optional(),
           ready_now: z.boolean().optional(),
           safe_yield: z.boolean().optional(),
-          min_score: z.number().optional().description('Minimum investment score (0-100)'),
+          min_score: z.number().optional(),
         }),
-        execute: async (filters: SearchFilters & { min_score?: number }) => {
-          let projects = findProjects(inventoryData as InventoryNode[], filters);
-          if (filters.min_score) {
-            projects = projects.filter(p => (p.derived_investment_score || 0) >= filters.min_score!);
+        execute: async (params) => {
+          let projects = findProjects(inventoryData as InventoryNode[], params);
+          if (params.min_score !== undefined) {
+            const min_score = params.min_score;
+            projects = projects.filter(p => (p.derived_investment_score ?? 0) >= min_score);
           }
           return projects;
         },
@@ -63,21 +49,19 @@ export async function POST(req: Request) {
       list_agents: tool({
         description: 'List available expert agents and templates',
         parameters: z.object({}),
-        execute: async () => {
-          return {
-            ready_agents: ['Investment Advisor', 'Caller Qualification', 'Sales Follow-Up', 'Listing Intelligence'],
-            builder_url: '/agents/builder'
-          };
-        },
+        execute: async () => ({
+          ready_agents: ['Investment Advisor', 'Caller Qualification', 'Sales Follow-Up', 'Listing Intelligence'],
+          builder_url: '/agents/builder',
+        }),
       }),
       semantic_search: tool({
         description: 'Search for projects based on semantic meaning or intent',
         parameters: z.object({
           query: z.string(),
-          filters: z.string().optional().description('Upstash metadata filter string (e.g., "price_from_aed < 2000000")'),
+          filters: z.string().optional(),
         }),
-        execute: async ({ query, filters }) => {
-          const results = await hybridSearch(query, filters);
+        execute: async (params) => {
+          const results = await hybridSearch(params.query, params.filters);
           return results;
         },
       }),
@@ -89,15 +73,19 @@ export async function POST(req: Request) {
             'regional_instability', 'capital_flight_to_uae', 'russia_sanctions',
             'golden_visa_expansion', 'escrow_enforcement', 'rera_price_controls',
             'material_shortage', 'expo_hangover', 'population_surge'
-          ] as [string, ...string[]]),
+          ]),
         }),
-        execute: async ({ scenario }) => {
-          const analysis = runWhatIfAnalysis(inventoryData as InventoryNode[], scenario as ScenarioType);
+        execute: async (params) => {
+          const analysis = runWhatIfAnalysis(inventoryData as InventoryNode[], params.scenario as ScenarioType);
           return analysis;
         },
       }),
     },
   });
 
-  return result.toDataStreamResponse();
+  if (result?.toTextStreamResponse) {
+    return result.toTextStreamResponse();
+  }
+
+  throw new Error('Failed to generate stream response from AI model.');
 }

@@ -23,7 +23,7 @@ export function recoverDeveloperName(node: any): string | null {
   const urlSource = node.public_url || node.url_slug || "";
   const urlMatch = urlSource.match(DEV_RECOVERY_URL_REGEX);
   if (urlMatch && urlMatch[1]) {
-    return urlMatch[1].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    return urlMatch[1].replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
   }
 
   // Attempt recovery from description
@@ -46,14 +46,14 @@ export function standardizeLocation(locationStr: string): { city: string; area: 
   
   if (parts.length >= 2) {
     return {
-      city: parts[0].replace(/\b\w/g, l => l.toUpperCase()),
-      area: parts[1].replace(/\b\w/g, l => l.toUpperCase())
+      city: parts[0].replace(/\b\w/g, (l: string) => l.toUpperCase()),
+      area: parts[1].replace(/\b\w/g, (l: string) => l.toUpperCase())
     };
   }
 
   return {
     city: "Dubai", // Default fallback
-    area: cleanStr.replace(/\b\w/g, l => l.toUpperCase())
+    area: cleanStr.replace(/\b\w/g, (l: string) => l.toUpperCase())
   };
 }
 

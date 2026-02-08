@@ -66,8 +66,8 @@ export function QuadrantGrid({ projects }: QuadrantGridProps) {
                 </TooltipTrigger>
                 <TooltipContent>
                   <div className="p-2 space-y-1">
-                    <p className="font-bold text-xs">{project.static_area} - {project.static_unit_types}</p>
-                    <p className="text-[10px] text-muted-foreground">{project.static_city}</p>
+                    <p className="font-bold text-xs">{project.area} - {project.name}</p>
+                    <p className="text-[10px] text-muted-foreground">{project.city}</p>
                     <Badge variant="secondary" className="text-[9px]">
                       {project.derived_risk_class}
                     </Badge>

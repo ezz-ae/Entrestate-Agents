@@ -21,40 +21,31 @@ export function Sidebar({ onSearchClick, onAssistantClick }: SidebarProps) {
     <aside
       role="navigation"
       aria-label="Main navigation"
-      className="flex h-full w-64 flex-col border-r border-border/50 bg-sidebar"
+      className="flex h-full w-64 flex-col border-r border-primary/10 bg-background/50 backdrop-blur-sm"
     >
-      <div className="flex items-center gap-2 p-4">
+      <div className="flex items-center gap-2 p-4 border-b border-primary/10">
         <Button
           variant="outline"
-          className="h-9 flex-1 justify-start gap-2 border-border bg-background text-foreground/70 hover:bg-muted hover:text-foreground"
+          className="h-10 flex-1 justify-start gap-2 border-primary/20 bg-primary/5 text-primary-foreground/70 hover:bg-primary/10 hover:text-primary-foreground"
           onClick={onSearchClick}
           aria-label="Open search (Cmd+K)"
         >
-          <Search className="h-4 w-4" />
-          <span className="text-sm">Search...</span>
-          <kbd className="ml-auto hidden rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium sm:inline-block">
+          <Search className="h-4 w-4 text-primary" />
+          <span className="text-xs font-black uppercase tracking-widest">Asset Extraction...</span>
+          <kbd className="ml-auto hidden rounded bg-primary/20 px-1.5 py-0.5 text-[10px] font-medium sm:inline-block text-primary">
             ⌘K
           </kbd>
         </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          className="h-9 w-9 shrink-0 border-border bg-background text-foreground/70 hover:bg-muted hover:text-foreground"
-          onClick={onAssistantClick}
-          aria-label="Open AI assistant"
-        >
-          <Sparkles className="h-4 w-4" />
-        </Button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto overscroll-contain px-3 pb-4" tabIndex={0}>
+      <nav className="flex-1 overflow-y-auto overscroll-contain px-3 pb-4 pt-6" tabIndex={0}>
         {navigation.map((section) => (
-          <div key={section.title} className="mb-4">
-            <div className="mb-1 flex items-center gap-2 px-2 py-1.5 text-sm font-medium text-foreground">
-              {section.icon && <section.icon className="h-4 w-4" aria-hidden="true" />}
+          <div key={section.title} className="mb-6">
+            <div className="mb-2 flex items-center gap-3 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-muted-foreground/80">
+              {section.icon && <section.icon className="h-3.5 w-3.5 text-primary/70" aria-hidden="true" />}
               {section.title}
             </div>
-            <ul className="space-y-0.5" role="list">
+            <ul className="space-y-1" role="list">
               {section.items.map((item) => {
                 const isActive = pathname === item.href
                 return (
@@ -63,10 +54,10 @@ export function Sidebar({ onSearchClick, onAssistantClick }: SidebarProps) {
                       href={item.href}
                       aria-current={isActive ? "page" : undefined}
                       className={cn(
-                        "flex min-h-[44px] items-center gap-2 rounded-lg px-2 py-2 text-sm transition-colors",
+                        "flex min-h-[44px] items-center gap-3 rounded-lg px-3 py-2 text-xs font-black uppercase tracking-widest transition-colors",
                         isActive
-                          ? "bg-primary/10 font-medium text-accent-light"
-                          : "text-muted-foreground hover:bg-secondary hover:text-foreground",
+                          ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
+                          : "text-muted-foreground hover:bg-muted/50 hover:text-foreground/80",
                       )}
                     >
                       {item.title}
@@ -79,7 +70,7 @@ export function Sidebar({ onSearchClick, onAssistantClick }: SidebarProps) {
         ))}
       </nav>
 
-      <div className="border-t border-border/50 p-4">
+      <div className="border-t border-primary/10 p-4">
         <div className="flex items-center justify-between gap-2">
           <LanguageSelector />
           <ThemeToggle />

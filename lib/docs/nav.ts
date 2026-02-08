@@ -18,12 +18,14 @@ import {
   BookOpen,
   Braces,
   Zap,
+  TrendingUp,
+  Activity,
 } from "lucide-react"
 
 export const siteConfig = {
-  name: "Entrestate Intelligence",
-  description: "Autonomous real estate reasoning engine and investment discovery platform.",
-  url: "https://intelligence.entrestate.com",
+  name: "Entrestate Director",
+  description: "The Autonomous Real Estate Revenue Engine",
+  url: "https://director.entrestate.com",
   links: {
     twitter: "https://twitter.com/entrestate",
     github: "https://github.com/ezz-ae/Entrestate-Agents",

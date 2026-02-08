@@ -24,13 +24,13 @@ import {
 
 // Site configuration
 export const siteConfig = {
-  name: "Entrestate Intelligence",
-  description: "AI-Native Real Estate Reasoning Engine & Investment Guardrail",
-  url: "https://intelligence.entrestate.com",
+  name: "Entrestate Director",
+  description: "The Autonomous Real Estate Revenue Engine",
+  url: "https://director.entrestate.com",
   ogImage: "/og-image.png",
   logo: {
-    light: "/logo.png",
-    dark: "/logo.png",
+    light: "/logo.svg",
+    dark: "/logo.svg",
   },
   github: "https://github.com/ezz-ae/Entrestate-Agents",
   twitter: "https://twitter.com/entrestate",
@@ -38,10 +38,10 @@ export const siteConfig = {
 
 // Top navigation links
 export const topNavigation = [
-  { label: "Market Inventory", href: "/inventory" },
-  { label: "Intelligence Dashboard", href: "/intelligence" },
-  { label: "Agent Builder", href: "/agents/builder" },
-  { label: "Documentation", href: "/docs" },
+  { label: "The Market Map", href: "/inventory" },
+  { label: "Revenue Matrix", href: "/intelligence" },
+  { label: "Deployment Hub", href: "/agents/builder" },
+  { label: "Intelligence Protocol", href: "/docs" },
 ]
 
 // Sidebar navigation

@@ -26,7 +26,16 @@ export function BestNextStepCard({ signal, context, onMitigate, onAcceptRisk }: 
         anchor: "STAY PARTIAL (Proceed with vulnerable setup)"
       };
     }
-    // ... existing content logic
+
+    switch (signal) {
+      case 'InactivityGap':
+        return {
+          title: "VISIBILITY GAP DETECTED",
+          description: "Your current analysis is static. The Market Reality has shifted since your last interaction.",
+          impact: "Execution Score (42/100) remains unmonitored.",
+          cta: "MITIGATE VISIBILITY GAP",
+          anchor: "I ACCEPT THE BLIND RISK"
+        };
       case 'ScrollDepthReached':
         return {
           title: "INTENSITY RECOGNIZED",

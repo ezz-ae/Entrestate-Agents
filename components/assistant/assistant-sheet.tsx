@@ -4,7 +4,7 @@ import { X, ArrowUp, Sparkles, User, Bot } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
-import { useChat } from 'ai/react'
+import { useChat } from '@ai-sdk/react';
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 interface AssistantSheetProps {
@@ -54,12 +54,14 @@ export function AssistantSheet({ open, onOpenChange }: AssistantSheetProps) {
                   <Sparkles className="h-8 w-8 text-primary" />
                 </div>
                 <h3 className="text-xl font-black tracking-tighter mb-2">PROACTIVE INTELLIGENCE</h3>
-                <p className="text-xs text-muted-foreground max-w-[280px] italic">
-                  "Your Intelligence Shield is 40% active. Provide your intent handle to complete the setup."
+                <p className="text-xs text-muted-foreground max-w-[280px] italic leading-relaxed">
+                  "Your Intelligence Shield is 40% active. Provide your intent handle to complete the setup and activate full market dominance."
                 </p>
                 <div className="mt-6 flex flex-col gap-2 w-full max-w-[240px]">
-                  <Button size="sm" className="w-full font-black text-[10px] tracking-widest">[ COMPLETE SETUP ]</Button>
-                  <Button size="sm" variant="ghost" className="w-full font-bold text-[9px] text-muted-foreground opacity-50 underline decoration-dotted">STAY PARTIAL (Vulnerable)</Button>
+                  <Button size="sm" className="w-full font-black text-[10px] tracking-widest uppercase h-10 shadow-lg shadow-primary/20 transition-transform active:scale-95">[ COMPLETE SETUP ]</Button>
+                  <Button size="sm" variant="ghost" className="w-full font-bold text-[9px] text-muted-foreground opacity-50 underline decoration-dotted uppercase hover:text-destructive">
+                    STAY PARTIAL (Vulnerable)
+                  </Button>
                 </div>
               </div>
             )}
@@ -102,7 +104,7 @@ export function AssistantSheet({ open, onOpenChange }: AssistantSheetProps) {
               placeholder="Ask a question..." 
               className="flex-1 bg-secondary/50 border-border/50" 
             />
-            <Button size="icon" type="submit" disabled={isLoading || !input.trim()} className="shrink-0">
+            <Button size="icon" type="submit" disabled={isLoading || !input || input.trim() === ''} className="shrink-0">
               <ArrowUp className="h-4 w-4" />
             </Button>
           </form>

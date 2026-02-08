@@ -24,13 +24,13 @@ function parseContent(content: string) {
     const line = lines[i]
 
     // Check for code block start
-    if (line.startsWith("```")) {
+    if (line && line.startsWith("```")) {
       const language = line.slice(3).trim() || "text"
       const codeLines: string[] = []
       i++
 
       // Collect code lines until closing fence
-      while (i < lines.length && !lines[i].startsWith("```")) {
+      while (i < lines.length && lines[i] && !lines[i].startsWith("```")) {
         codeLines.push(lines[i])
         i++
       }
@@ -41,11 +41,11 @@ function parseContent(content: string) {
     }
 
     // Check for table start (line starts with | and contains at least 2 |)
-    if (line.trim().startsWith("|") && line.split("|").length >= 3) {
+    if (line && line.trim().startsWith("|") && line.split("|").length >= 3) {
       const tableLines: string[] = []
 
       // Collect all table lines
-      while (i < lines.length && lines[i].trim().startsWith("|")) {
+      while (i < lines.length && lines[i] && lines[i].trim().startsWith("|")) {
         tableLines.push(lines[i])
         i++
       }
@@ -58,7 +58,7 @@ function parseContent(content: string) {
     }
 
     // Headers
-    if (line.startsWith("# ")) {
+    if (line && line.startsWith("# ")) {
       elements.push(
         <h1 key={key++} className="mb-4 mt-8 text-3xl font-bold text-foreground">
           {line.slice(2)}
@@ -68,7 +68,7 @@ function parseContent(content: string) {
       continue
     }
 
-    if (line.startsWith("## ")) {
+    if (line && line.startsWith("## ")) {
       elements.push(
         <h2 key={key++} className="mb-3 mt-6 text-2xl font-semibold text-foreground">
           {line.slice(3)}
@@ -78,7 +78,7 @@ function parseContent(content: string) {
       continue
     }
 
-    if (line.startsWith("### ")) {
+    if (line && line.startsWith("### ")) {
       elements.push(
         <h3 key={key++} className="mb-2 mt-4 text-xl font-semibold text-foreground">
           {line.slice(4)}
@@ -89,7 +89,7 @@ function parseContent(content: string) {
     }
 
     // List items
-    if (line.startsWith("- ")) {
+    if (line && line.startsWith("- ")) {
       elements.push(
         <li key={key++} className="ml-4 text-muted-foreground">
           {renderInlineFormatting(line.slice(2))}
@@ -100,17 +100,19 @@ function parseContent(content: string) {
     }
 
     // Skip empty lines
-    if (line.trim() === "") {
+    if (line && line.trim() === "") {
       i++
       continue
     }
 
     // Regular paragraph with inline formatting support
-    elements.push(
-      <p key={key++} className="mb-2 text-muted-foreground">
-        {renderInlineFormatting(line)}
-      </p>,
-    )
+    if (line) {
+      elements.push(
+        <p key={key++} className="mb-2 text-muted-foreground">
+          {renderInlineFormatting(line)}
+        </p>,
+      )
+    }
     i++
   }
 
